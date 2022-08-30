@@ -1,12 +1,16 @@
 const express = require("express");
-
-const userRouter = require("./user");
-const productRouter = require("./product");
-// const otherRouter = require('./other');
-
 const router = express.Router();
+const cors = require("cors");
 
-router.use(userRouter);
-router.use("/products", productRouter);
+const userRouter = require("./userRouter");
+const productRouter = require("./product");
+
+router.get("/", (req, res) => {
+  res.json({ message: "/ pong" });
+});
+
+router.use("/users", userRouter);
+// router.use("/products", productRouter);
+router.use(cors("http://localhost:3000"));
 
 module.exports = router;

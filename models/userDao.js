@@ -20,7 +20,7 @@ myDataSource
   });
 
 const createUser = async (email, hashedPw, name, phoneNumber) => {
-  // console.log("model 1");
+  console.log("model 1");
 
   const user = await myDataSource.query(
     `
@@ -29,10 +29,25 @@ const createUser = async (email, hashedPw, name, phoneNumber) => {
   `,
     [email, hashedPw, name, phoneNumber]
   );
-  // console.log("model 2");
+  console.log("model 2");
   return user;
 };
 
-// function readUserByEmail(email) {}
+const userLogin = async (email) => {
+  console.log("model 3");
+  const [user] = await myDataSource.query(
+    `
+    SELECT
+      id,
+      email,
+      password
+    FROM users
+    WHERE email = ?
+  `,
+    [email]
+  );
+  console.log("model 4");
+  return user;
+};
 
-module.exports = { createUser };
+module.exports = { createUser, userLogin };

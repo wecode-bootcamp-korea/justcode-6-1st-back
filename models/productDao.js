@@ -22,13 +22,13 @@ const getProducts = async () => {
     `
     SELECT 
       products.id as product_id,
-      category_id,
+      category,
       name,
       description,
       productor,
       image_thumbnail,
-      bundle.price,
-      created_at
+      bundle.price
+      created_at,
     FROM products
     JOIN bundle ON products.id = bundle.product_id
     WHERE bundle.bundle_name = "소"

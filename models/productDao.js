@@ -54,7 +54,7 @@ const getProductsById = async (productId) => {
 };
 
 // 카테고리별 리스트 = 가격순
-const getProductsByCategoryPrice = async (category, orderBy) => {
+const getProductsByCategoryPrice = async (category) => {
   try {
     const getProductsByCategory = await myDataSource.query(
       `
@@ -84,7 +84,7 @@ const getProductsByCategoryPrice = async (category, orderBy) => {
 };
 
 // 카테고리별 리스트 = 조회순
-const getProductsByCategoryView = async (category, orderBy) => {
+const getProductsByCategoryView = async (category) => {
   try {
     const getProductsByCategory = await myDataSource.query(
       `
@@ -114,7 +114,7 @@ const getProductsByCategoryView = async (category, orderBy) => {
 };
 
 // 카테고리별 리스트 = 구매순
-const getProductsByCategoryOrder = async (category, orderBy) => {
+const getProductsByCategoryOrder = async (category) => {
   try {
     const getProductsByCategory = await myDataSource.query(
       `

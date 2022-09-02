@@ -188,12 +188,13 @@ CREATE TABLE `users` (
   `phoneNumber` varchar(255) NOT NULL,
   `birth` int NOT NULL,
   `gender` varchar(50) NOT NULL,
+  `address` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'coding_restaurant'
+-- Dumping routines for database 'coding-restaurant'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

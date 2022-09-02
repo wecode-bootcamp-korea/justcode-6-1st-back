@@ -9,6 +9,7 @@ const getProducts = async (filterType, orderByType) => {
     category,
     name,
       JSON_ARRAYAGG(json_object(
+       'id', bundle.id,
        'option', bundle.bundle_option,
        'price', bundle.price,
        'quantity', bundle.quantity
@@ -44,6 +45,7 @@ const getProductsById = async (productId) => {
       category,
       name,
         JSON_ARRAYAGG(json_object(
+         'id', bundle.id,
          'option', bundle.bundle_option,
          'price', bundle.price,
          'quantity', bundle.quantity

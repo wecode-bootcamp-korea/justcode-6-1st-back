@@ -36,8 +36,8 @@ const getFilterType = (category, search) => {
 
 const getOrderByType = (orderBy) => {
   const OrderByType = {
-    LOW_PRICE: "ORDER BY bundle.price ASC",
-    HIGH_PRICE: "ORDER BY bundle.price DESC",
+    LOW_PRICE: "ORDER BY fixedPrice ASC",
+    HIGH_PRICE: "ORDER BY fixedPrice DESC",
     VIEW_COUNT: "ORDER BY view_count DESC",
     ORDER_COUNT: "ORDER BY order_count DESC",
   };

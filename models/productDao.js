@@ -5,19 +5,25 @@ const getProducts = async (filterType, orderByType) => {
     const products = await myDataSource.query(
       `
     SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at,
-      view_count,
-      order_count
+    products.id,
+    category,
+    name,
+      JSON_ARRAYAGG(json_object(
+       'option', bundle.bundle_option,
+       'price', bundle.price,
+       'quantity', bundle.quantity
+       ))as bundle,
+    description,
+    productor,
+    fixedPrice,
+    image_thumbnail,
+    view_count, 
+    order_count,
+    created_at
     FROM products
     JOIN bundle ON products.id = bundle.product_id
     ${filterType}
+    GROUP BY products.id
     ${orderByType}
     `
     );
@@ -33,18 +39,26 @@ const getProductsById = async (productId) => {
   try {
     const getProductsById = await myDataSource.query(
       `
-    SELECT 
-      products.id as product_id,
+      SELECT 
+      products.id,
       category,
       name,
+        JSON_ARRAYAGG(json_object(
+         'option', bundle.bundle_option,
+         'price', bundle.price,
+         'quantity', bundle.quantity
+         ))as bundle,
       description,
       productor,
+      fixedPrice,
       image_thumbnail,
-      bundle.price,
+      view_count, 
+      order_count,
       created_at
-    FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_option = "소" AND products.id = ?
+      FROM products
+      JOIN bundle ON products.id = bundle.product_id
+      WHERE products.id = ?
+      GROUP BY products.id
     `,
       [productId]
     );

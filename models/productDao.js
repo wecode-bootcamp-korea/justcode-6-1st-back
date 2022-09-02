@@ -9,7 +9,10 @@ const getProducts = async (filterType, orderByType) => {
     category,
     name,
       JSON_ARRAYAGG(json_object(
+<<<<<<< HEAD
        'id', bundle.id,
+=======
+>>>>>>> cf198f3 (민우)[FIX]: products 테이블 fixedPrice 항목추가 및 가격별 정렬기능 수정)
        'option', bundle.bundle_option,
        'price', bundle.price,
        'quantity', bundle.quantity

@@ -13,4 +13,3 @@ CREATE TABLE `reviews` (
 );
 
 -- migrate:down
-TRUNCATE reviews;

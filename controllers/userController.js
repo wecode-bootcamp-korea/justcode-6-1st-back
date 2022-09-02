@@ -60,7 +60,7 @@ const userLogin = async (req, res) => {
       res.status(400).json({ message: "ERROR: KEY" });
       return;
     }
-
+    // 이메일형식이 맞는지 확인
     const expEmailText =
       /^[A-Za-z0-9\.\-]+\@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
     if (!expEmailText.test(email)) {

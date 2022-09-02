@@ -8,4 +8,3 @@ CREATE TABLE `users` (
 );
 
 -- migrate:down
-TRUNCATE users;

@@ -7,5 +7,3 @@ CREATE TABLE `address` (
 );
 
 -- migrate:down
-
-TRUNCATE address;

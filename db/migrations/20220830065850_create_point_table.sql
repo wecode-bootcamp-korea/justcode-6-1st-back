@@ -7,4 +7,3 @@ CREATE TABLE `point` (
 );
 
 -- migrate:down
-TRUNCATE point;

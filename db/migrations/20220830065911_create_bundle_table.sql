@@ -9,4 +9,3 @@ CREATE TABLE `bundle` (
 );
 
 -- migrate:down
-TRUNCATE bundle;

@@ -11,5 +11,3 @@ CREATE TABLE `order` (
 );
 
 -- migrate:down
-
-TRUNCATE order;

@@ -1,8 +1,8 @@
 -- migrate:up
-CREATE TABLE `point` (
-  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE `address` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `point` int,
+  `address` varchar(255) NOT NULL,
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
 

@@ -9,4 +9,3 @@ CREATE TABLE `carts` (
 );
 
 -- migrate:down
-TRUNCATE carts;

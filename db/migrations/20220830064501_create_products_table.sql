@@ -11,7 +11,4 @@ CREATE TABLE `products` (
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP)
 );
 
--- migrate:down
-
-TRUNCATE products;
-
+-- migrate:down 

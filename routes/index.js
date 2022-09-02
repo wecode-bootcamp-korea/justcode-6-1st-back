@@ -1,12 +1,15 @@
 const express = require("express");
 
-const userRouter = require("./user");
-const productRouter = require("./product");
-const cartsRouter = require("./carts");
-
 const router = express.Router();
 
-router.use(userRouter);
+const userRouter = require("./userRouter");
+const productRouter = require("./product");
+
+router.get("/", (req, res) => {
+  res.json({ message: "/ pong" });
+});
+
+router.use("/users", userRouter);
 router.use(productRouter);
 router.use("/carts", cartsRouter);
 

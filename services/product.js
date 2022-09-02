@@ -1,40 +1,59 @@
 const productDao = require("../models/productDao");
 
-const getProducts = async () => {
-  const getProducts = await productDao.getProducts();
-  return getProducts;
-};
-
 const getProductsById = async (productId) => {
   const getProductsById = await productDao.getProductsById(productId);
   return getProductsById;
 };
 
-//기본순서는 주문이 많은 순으로
-const getProductsByCategory = async (category, orderBy) => {
-  if (orderBy === "price") {
-    const getProductsByCategoryPrice =
-      await productDao.getProductsByCategoryPrice(category);
-    return getProductsByCategoryPrice;
-  } else if (orderBy === "view") {
-    const getProductsByCategoryView =
-      await productDao.getProductsByCategoryView(category);
-    return getProductsByCategoryView;
-  } else {
-    const getProductsByCategoryOrder =
-      await productDao.getProductsByCategoryOrder(category);
-    return getProductsByCategoryOrder;
-  }
+const getProducts = async (category, search, orderBy) => {
+  const filterType = getFilterType(category, search);
+  const orderByType = getOrderByType(orderBy);
+  const getProductsB = await productDao.getProducts(filterType, orderByType);
+  return getProductsB;
 };
 
-const getProductsBySearch = async (word) => {
-  const getProductsBySearch = await productDao.getProductsBySearch(word);
-  return getProductsBySearch;
+const getFilterType = (category, search) => {
+  const FilterType = {
+    CATEGORY: `WHERE category = "${category}"`,
+    SEARCH: `WHERE products.name like "%${search}%"`,
+    CATEGORY_AND_SEARCH: `WHERE category = "${category}" AND WHERE products.name like "%${search}%"`,
+  };
+
+  if (category && search) {
+    return FilterType.CATEGORY_AND_SEARCH;
+  }
+
+  if (category) {
+    return FilterType.CATEGORY;
+  }
+
+  if (search) {
+    return FilterType.SEARCH;
+  }
+
+  return "";
+};
+
+const getOrderByType = (orderBy) => {
+  const OrderByType = {
+    LOW_PRICE: "ORDER BY bundle.price ASC",
+    HIGH_PRICE: "ORDER BY bundle.price DESC",
+    VIEW_COUNT: "ORDER BY view_count DESC",
+    ORDER_COUNT: "ORDER BY order_count DESC",
+  };
+
+  if (orderBy == "lowPrice") {
+    return OrderByType.LOW_PRICE;
+  } else if (orderBy == "highPrice") {
+    return OrderByType.HIGH_PRICE;
+  } else if (orderBy == "viewCount") {
+    return OrderByType.VIEW_COUNT;
+  } else if (orderBy == "orderCount") {
+    return OrderByType.VIEW_COUNT;
+  } else return "";
 };
 
 module.exports = {
   getProducts,
   getProductsById,
-  getProductsByCategory,
-  getProductsBySearch,
 };

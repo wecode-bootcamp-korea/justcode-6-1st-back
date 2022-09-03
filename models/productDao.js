@@ -1,6 +1,17 @@
 const { myDataSource } = require("./dataSource");
 
-const getProducts = async (filterType, orderByType) => {
+const checkAllproduct = async () => {
+  const [Allproduct] = await myDataSource.query(
+    `
+    SELECT COUNT(*)
+    FROM
+    products
+    `
+  );
+  return Object.values(Allproduct)[0];
+};
+
+const getProducts = async (filterType, orderByType, pagination) => {
   try {
     const products = await myDataSource.query(
       `
@@ -8,12 +19,6 @@ const getProducts = async (filterType, orderByType) => {
     products.id,
     category,
     name,
-      JSON_ARRAYAGG(json_object(
-       'id', bundle.id,
-       'option', bundle.bundle_option,
-       'price', bundle.price,
-       'quantity', bundle.quantity
-       ))as bundle,
     description,
     productor,
     fixedPrice,
@@ -26,6 +31,7 @@ const getProducts = async (filterType, orderByType) => {
     ${filterType}
     GROUP BY products.id
     ${orderByType}
+    ${pagination}
     `
     );
     return products;
@@ -40,28 +46,53 @@ const getProductsById = async (productId) => {
   try {
     const getProductsById = await myDataSource.query(
       `
-      SELECT 
+    SELECT
       products.id,
-      category,
       name,
+      description,
+      fixedprice,
+      content,
+        b.bundle,
+        pi.image,
+        r.review
+    From products
+    LEFT JOIN(
+      SELECT
+        product_id,
         JSON_ARRAYAGG(json_object(
-         'id', bundle.id,
          'id', bundle.id,
          'option', bundle.bundle_option,
          'price', bundle.price,
          'quantity', bundle.quantity
-         ))as bundle,
-      description,
-      productor,
-      fixedPrice,
-      image_thumbnail,
-      view_count, 
-      order_count,
-      created_at
-      FROM products
-      JOIN bundle ON products.id = bundle.product_id
-      WHERE products.id = ?
-      GROUP BY products.id
+         ))as bundle
+        FROM bundle
+      GROUP BY product_id) b on products.id = b.product_id
+    LEFT JOIN(
+      SELECT 
+        product_id,
+          JSON_ARRAYAGG(json_object(
+         'id', id,
+         'image', image
+         ))as image
+       FROM 
+      product_images
+      GROUP BY product_id) pi ON products.id = pi.product_id
+    LEFT JOIN(
+    SELECT 
+      product_id,
+        JSON_ARRAYAGG(json_object(
+       'id', reviews.id,
+       'name', users.name,
+         'content', content,
+         'rating', rating,
+         'created_at', created_at,
+         'review_comment_id', review_comment_id
+       ))as review
+    FROM 
+    reviews
+    JOIN users ON users.id = reviews.user_id
+    GROUP BY product_id) r ON products.id = r.product_id
+    WHERE products.id = ?
     `,
       [productId]
     );
@@ -76,4 +107,5 @@ const getProductsById = async (productId) => {
 module.exports = {
   getProducts,
   getProductsById,
+  checkAllproduct,
 };

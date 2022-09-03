@@ -26,7 +26,7 @@ const getProducts = async (req, res) => {
 const getProductsById = async (req, res) => {
   try {
     const productId = req.params.id;
-    console.log(productId);
+
     const list = await productService.getProductsById(productId);
     res.status(200).json({ data: list });
   } catch (err) {

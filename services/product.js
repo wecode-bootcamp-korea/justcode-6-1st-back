@@ -3,6 +3,13 @@ const productDao = require("../models/productDao");
 
 const getProductsById = async (productId) => {
   const getProductsById = await productDao.getProductsById(productId);
+  for (const obj of getProductsById) {
+    /// of 사용법 익히기
+    obj.bundle = JSON.parse(obj.bundle); /// 문자열 json 전환  // 이 부분 고난이도임
+    obj.image = JSON.parse(obj.image);
+    obj.review = JSON.parse(obj.review);
+  }
+
   return getProductsById;
 };
 

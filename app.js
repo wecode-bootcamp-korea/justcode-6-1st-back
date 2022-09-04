@@ -10,7 +10,6 @@ const createApp = () => {
   app.use(express.json());
   app.use(router);
   app.use(morgan("tiny"));
-  app.use(cors());
 
   return app;
 };

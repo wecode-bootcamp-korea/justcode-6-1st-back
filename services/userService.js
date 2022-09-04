@@ -50,8 +50,29 @@ const userLogin = async (email, password) => {
 };
 
 const userData = async (userId) => {
-  console.log("22222");
-  return await userDao.userData(userId);
+  const getUserDataById = await userDao.userData(userId);
+
+  const address = [];
+  const data = {
+    userId: getUserDataById[0].userId,
+    email: getUserDataById[0].email,
+    name: getUserDataById[0].name,
+    phoneNumber: getUserDataById[0].phoneNumber,
+    birth: getUserDataById[0].birth,
+    gender: getUserDataById[0].gender,
+    isConsent: getUserDataById[0].isConsent,
+    address: address,
+  };
+  for (const addresslist of getUserDataById) {
+    address.push({
+      addressId: addresslist.addressId,
+      postalCode: addresslist.postalCode,
+      address3: addresslist.address,
+      address1: addresslist.address1,
+    });
+  }
+  console.log(data);
+  return data;
 };
 
 module.exports = { createUser, userLogin, userData };

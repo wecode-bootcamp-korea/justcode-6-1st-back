@@ -34,31 +34,22 @@ const userLogin = async (email) => {
 const userData = async (userId) => {
   const user = await myDataSource.query(
     `
-    SELECT myprofile
-    FROM (
-    SELECT json_object(
-      'email', users.email,
-      'name', users.name,
-      'phoneNumber', users.phoneNumber,
-      'birth', users.birth,
-      'gender', users.gender,
-      'isConsent', users.isConsent,
-      'address2', 
-      JSON_ARRAYAGG(
-        JSON_OBJECT(
-          'postalCode', address.postalCode,
-          'address', address.address,
-          'address1', address.address1
-        )
-      )
-    )
-    myprofile
-    FROM address
-    JOIN users ON users.id = address.user_id
-    WHERE users.id = ?
-    GROUP BY users.id, users.name) sub
-    `,
-    [userId]
+    SELECT
+      u.id as "userId",
+      u.email as "email",
+      u.name as "name",
+      u.phoneNumber as "phoneNumber",
+      u.birth as "birth",
+      u.gender as "gender",
+      u.isConsent as "isConsent",
+      a.id as "addressId",
+      a.postalCode as "postalCode",
+      a.address as "address",
+      a.address1 as "address1"
+    FROM users u
+    INNER JOIN address a ON a.user_id = u.id
+    WHERE u.id = ${userId}
+    order by a.id`
   );
   return user;
 };

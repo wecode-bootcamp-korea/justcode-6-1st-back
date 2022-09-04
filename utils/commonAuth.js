@@ -6,20 +6,21 @@ const commonAuth = async (req, res) => {
     if (req.headers["authorization"] != "") {
       const headers = req.headers["authorization"];
       const accessToken = headers.split(" ")[1];
-      const decode = jwt.verify(accessToken, process.env.JWT_SECRET);
-      const userId = decode.sub;
+      const decode = await jwt.verify(accessToken, "codingResKey");
+      const userId = decode.userId;
       const user = await authDao.getUserById(userId);
 
       if (!user) {
-        res.status(404).json({ result: false });
+        console.log(user);
+        res.status(404).json({ result: "false1" });
       } else {
         res.status(200).json({ result: true });
       }
     } else {
-      res.status(404).json({ result: false });
+      res.status(404).json({ result: "false2" });
     }
   } catch (err) {
-    return res.status(404).json({ result: false });
+    return res.status(404).json({ result: "false3" });
   }
 };
 

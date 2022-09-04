@@ -52,9 +52,9 @@ const getProductsById = async (productId) => {
       description,
       fixedprice,
       content,
-        b.bundle,
-        pi.image,
-        r.review
+        b.bundles,
+        pi.images,
+        r.reviews
     From products
     LEFT JOIN(
       SELECT
@@ -64,7 +64,7 @@ const getProductsById = async (productId) => {
          'option', bundle.bundle_option,
          'price', bundle.price,
          'quantity', bundle.quantity
-         ))as bundle
+         ))as bundles
         FROM bundle
       GROUP BY product_id) b on products.id = b.product_id
     LEFT JOIN(
@@ -73,7 +73,7 @@ const getProductsById = async (productId) => {
           JSON_ARRAYAGG(json_object(
          'id', id,
          'image', image
-         ))as image
+         ))as images
        FROM 
       product_images
       GROUP BY product_id) pi ON products.id = pi.product_id
@@ -87,7 +87,7 @@ const getProductsById = async (productId) => {
          'rating', rating,
          'created_at', created_at,
          'review_comment_id', review_comment_id
-       ))as review
+       ))as reviews
     FROM 
     reviews
     JOIN users ON users.id = reviews.user_id

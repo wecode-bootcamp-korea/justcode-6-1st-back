@@ -1,15 +1,52 @@
+const { myDataSource } = require("../models/dataSource");
 const productDao = require("../models/productDao");
 
 const getProductsById = async (productId) => {
   const getProductsById = await productDao.getProductsById(productId);
+  for (const obj of getProductsById) {
+    /// of 사용법 익히기
+    obj.bundles = JSON.parse(obj.bundles); /// 문자열 json 전환  // 이 부분 고난이도임
+    obj.images = JSON.parse(obj.images);
+    obj.reviews = JSON.parse(obj.reviews);
+  }
+
   return getProductsById;
 };
 
-const getProducts = async (category, search, orderBy) => {
+const getProducts = async (category, search, orderBy, page, pageSize) => {
   const filterType = getFilterType(category, search);
   const orderByType = getOrderByType(orderBy);
-  const getProductsB = await productDao.getProducts(filterType, orderByType);
-  return getProductsB;
+  const pagination = getStartNum(page, pageSize);
+
+  /// 상품갯수보다 많은 페이지로 이동할경우 null반환 //
+  const cntList = productDao.checkAllproduct();
+  if (page > Math.round(cntList / pageSize)) {
+    return null;
+  }
+
+  const getProducts = await productDao.getProducts(
+    filterType,
+    orderByType,
+    pagination
+  );
+
+  return getProducts;
+};
+
+const getStartNum = (page, pageSize) => {
+  let start = 0;
+
+  if (page <= 0 || !page) {
+    page = 1;
+  } else {
+    start = (page - 1) * pageSize;
+  }
+
+  if (!pageSize) {
+    return "";
+  }
+
+  return `LIMIT ${start},${pageSize}`;
 };
 
 const getFilterType = (category, search) => {

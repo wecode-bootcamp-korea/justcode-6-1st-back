@@ -6,10 +6,15 @@ const getProducts = async (req, res) => {
     const category = pageInfo["category"];
     const search = pageInfo["search"];
     const orderBy = pageInfo["orderBy"];
+    const page = parseInt(pageInfo["page"]);
+    const pagesize = parseInt(pageInfo["pageSize"]);
+
     const getProducts = await productService.getProducts(
       category,
       search,
-      orderBy
+      orderBy,
+      page,
+      pagesize
     );
     res.status(200).json({ data: getProducts });
   } catch (err) {
@@ -21,9 +26,9 @@ const getProducts = async (req, res) => {
 const getProductsById = async (req, res) => {
   try {
     const productId = req.params.id;
-    console.log(productId);
+
     const list = await productService.getProductsById(productId);
-    res.status(200).json({ data: list });
+    res.status(200).json({ data: list[0] });
   } catch (err) {
     console.log(err);
     res.status(err.statusCode || 500).json({ message: err.message });

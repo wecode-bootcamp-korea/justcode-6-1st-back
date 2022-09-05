@@ -13,14 +13,14 @@ const getCarts = async (req, res) => {
 };
 
 const updateCarts = async (req, res) => {
-  const { cartsId, quantity } = req.body;
-  const updateCarts = await cartsService.updateCarts(cartsId, quantity);
+  const { userId, cartsId, quantity } = req.body;
+  const updateCarts = await cartsService.updateCarts(userId, cartsId, quantity);
   res.status(200).json({ message: "UPDATE_CARTS" });
 };
 
 const deleteCarts = async (req, res) => {
-  const { cartsId } = req.body;
-  const deleteCarts = await cartsService.deleteCarts(cartsId);
+  const { userId, cartsId } = req.body;
+  const deleteCarts = await cartsService.deleteCarts(userId, cartsId);
   res.status(200).json({ message: "DELETE_CARTS" });
 };
 

@@ -10,4 +10,14 @@ const getCarts = async (userId) => {
   return getCarts;
 };
 
-module.exports = { createCarts, getCarts };
+const updateCarts = async (cartsId, quantity) => {
+  const updateCarts = await cartsDao.updateCarts(cartsId, quantity);
+  return updateCarts;
+};
+
+const deleteCarts = async (cartsId) => {
+  const deleteCarts = await cartsDao.deleteCarts(cartsId);
+  return deleteCarts;
+};
+
+module.exports = { createCarts, getCarts, updateCarts, deleteCarts };

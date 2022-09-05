@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("", cartsController.createCarts);
 router.get("/", cartsController.getCarts);
-// router.patch("/", cartsController.update);
-// router.delete("/", cartsController.);
+router.patch("/", cartsController.updateCarts);
+router.delete("/", cartsController.deleteCarts);
 
 module.exports = router;

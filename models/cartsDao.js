@@ -40,4 +40,41 @@ const getCarts = async (userId) => {
   }
 };
 
-module.exports = { createCarts, getCarts };
+const updateCarts = async (cartsId, quantity) => {
+  try {
+    const updateCarts = await myDataSource.query(
+      `
+      UPDATE
+      carts
+      SET
+      quantity = ${quantity}
+      WHERE carts.id = ${cartsId}
+    `
+    );
+    return updateCarts;
+  } catch (err) {
+    const error = new Error("INVALID_DATA_INPUT");
+    error.statusCode = "500";
+    throw error;
+  }
+};
+
+const deleteCarts = async (cartsId) => {
+  try {
+    const deleteCarts = await myDataSource.query(
+      `
+      DELETE
+      FROM
+      carts
+      WHERE carts.id = ${cartsId}
+    `
+    );
+    return deleteCarts;
+  } catch (err) {
+    const error = new Error("INVALID_DATA_INPUT");
+    error.statusCode = "500";
+    throw error;
+  }
+};
+
+module.exports = { createCarts, getCarts, updateCarts, deleteCarts };

@@ -10,4 +10,5 @@ router.post("/login", userController.userLogin);
 
 router.get("/my", auth.validationToken, userController.userData);
 router.get("/access", commonAuth.commonAuth);
+
 module.exports = router;

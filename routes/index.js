@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
   res.json({ message: "/ pong" });
 });
 
-router.use("/users", userRouter);
+router.use(userRouter);
 router.use(productRouter);
 
 module.exports = router;

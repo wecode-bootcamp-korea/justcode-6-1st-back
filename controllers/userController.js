@@ -1,12 +1,3 @@
-function signupController(req, res) {
-  res.status(500).json({ message: "not implemented" }); // 구현이 되면 삭제합니다.
-}
-
-function loginController(req, res) {
-  res.status(500).json({ message: "not implemented" }); // 구현이 되면 삭제합니다.
-}
-
-module.exports = { signupController, loginController };
 const userService = require("../services/userService");
 
 /** 회원가입  */
@@ -52,7 +43,7 @@ const createUser = async (req, res) => {
       return;
     }
 
-    res.status(201).json({ message: "SINGUP_SUCCESS!" });
+    res.status(201).json({ message: "userCreated" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "ERROR: USERCREATED" });
@@ -85,7 +76,7 @@ const userLogin = async (req, res) => {
       return;
     }
     //password가 틀릴 경우
-    if (user.isPasswordCorrect === false) {
+    if (!user.isPasswordCorrect) {
       res.status(400).json({ message: "ERROR: PASSWORD_INCORRECT" });
       return;
     }
@@ -97,4 +88,16 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { createUser, userLogin };
+/** 프로필 */
+const userData = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await userService.userData(userId);
+    console.log(user);
+    return res.status(201).json({ data: user });
+  } catch (err) {
+    res.status(500).json({ message: "ERROR: USERDATA" });
+  }
+};
+
+module.exports = { createUser, userLogin, userData };

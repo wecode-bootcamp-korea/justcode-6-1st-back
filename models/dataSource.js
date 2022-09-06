@@ -18,6 +18,4 @@ myDataSource
     database.destroy();
   });
 
-module.exports = {
-  myDataSource,
-};
+module.exports = { myDataSource };

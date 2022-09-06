@@ -12,4 +12,3 @@ ALTER TABLE users DROP gender;
 ALTER TABLE point DROP created_at;
 ALTER TABLE point DROP description;
 ALTER TABLE bundle DROP bundle_option;
-

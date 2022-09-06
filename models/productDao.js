@@ -1,24 +1,40 @@
 const { myDataSource } = require("./dataSource");
 
-const getProducts = async () => {
+const checkAllproduct = async () => {
+  const [Allproduct] = await myDataSource.query(
+    `
+    SELECT COUNT(*)
+    FROM
+    products
+    `
+  );
+  return Object.values(Allproduct)[0];
+};
+
+const getProducts = async (filterType, orderByType, pagination) => {
   try {
-    const getProducts = await myDataSource.query(
+    const products = await myDataSource.query(
       `
     SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at
+    products.id,
+    category,
+    name,
+    description,
+    productor,
+    fixedPrice,
+    image_thumbnail,
+    view_count, 
+    order_count,
+    created_at
     FROM products
     JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_name = "소"
+    ${filterType}
+    GROUP BY products.id
+    ${orderByType}
+    ${pagination}
     `
     );
-    return getProducts;
+    return products;
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
     error.statusCode = "500";
@@ -30,18 +46,53 @@ const getProductsById = async (productId) => {
   try {
     const getProductsById = await myDataSource.query(
       `
-    SELECT 
-      products.id as product_id,
-      category,
+    SELECT
+      products.id,
       name,
       description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at
-    FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_name = "소" AND products.id = ?
+      fixedprice,
+      content,
+        b.bundles,
+        pi.images,
+        r.reviews
+    From products
+    LEFT JOIN(
+      SELECT
+        product_id,
+        JSON_ARRAYAGG(json_object(
+         'id', bundle.id,
+         'option', bundle.bundle_option,
+         'price', bundle.price,
+         'quantity', bundle.quantity
+         ))as bundles
+        FROM bundle
+      GROUP BY product_id) b on products.id = b.product_id
+    LEFT JOIN(
+      SELECT 
+        product_id,
+          JSON_ARRAYAGG(json_object(
+         'id', id,
+         'image', image
+         ))as images
+       FROM 
+      product_images
+      GROUP BY product_id) pi ON products.id = pi.product_id
+    LEFT JOIN(
+    SELECT 
+      product_id,
+        JSON_ARRAYAGG(json_object(
+       'id', reviews.id,
+       'name', users.name,
+         'content', content,
+         'rating', rating,
+         'created_at', created_at,
+         'review_comment_id', review_comment_id
+       ))as reviews
+    FROM 
+    reviews
+    JOIN users ON users.id = reviews.user_id
+    GROUP BY product_id) r ON products.id = r.product_id
+    WHERE products.id = ?
     `,
       [productId]
     );
@@ -53,133 +104,8 @@ const getProductsById = async (productId) => {
   }
 };
 
-// 카테고리별 리스트 = 가격순
-const getProductsByCategoryPrice = async (category) => {
-  try {
-    const getProductsByCategory = await myDataSource.query(
-      `
-    SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at,
-      view_count,
-      order_count
-    FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_name = "소" AND category = "${category}"
-    ORDER BY bundle.price DESC
-    `
-    );
-    return getProductsByCategory;
-  } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
-    throw error;
-  }
-};
-
-// 카테고리별 리스트 = 조회순
-const getProductsByCategoryView = async (category) => {
-  try {
-    const getProductsByCategory = await myDataSource.query(
-      `
-    SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at,
-      view_count,
-      order_count
-    FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_name = "소" AND category = "${category}"
-    ORDER BY view_count DESC
-    `
-    );
-    return getProductsByCategory;
-  } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
-    throw error;
-  }
-};
-
-// 카테고리별 리스트 = 구매순
-const getProductsByCategoryOrder = async (category) => {
-  try {
-    const getProductsByCategory = await myDataSource.query(
-      `
-    SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at,
-      view_count,
-      order_count
-    FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE bundle.bundle_name = "소" AND category = "${category}"
-    ORDER BY order_count DESC
-    `
-    );
-    return getProductsByCategory;
-  } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
-    throw error;
-  }
-};
-
-// 사용하려다가 실패한 코드... 나중에 사용법을 더 익힌 후 리팩토링 예정
-// CASE WHEN ${orderBy} = price THEN bundle.price END DESC
-// CASE WHEN ${orderBy} = view THEN products.view_count END ASC,
-// CASE WHEN ${orderBy} = order THEN bundle.price END,
-// CASE WHEN ${orderBy} IS NULL THEN products.id END
-
-const getProductsBySearch = async (word) => {
-  try {
-    const getProductsBySearch = await myDataSource.query(
-      `
-    SELECT 
-      products.id as product_id,
-      category,
-      name,
-      description,
-      productor,
-      image_thumbnail,
-      bundle.price,
-      created_at
-      FROM products
-    JOIN bundle ON products.id = bundle.product_id
-    WHERE products.name like "%${word}%" AND bundle.price = "10000"
-  `
-    );
-    return getProductsBySearch;
-  } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
-    throw error;
-  }
-};
-
 module.exports = {
   getProducts,
   getProductsById,
-  getProductsByCategoryPrice,
-  getProductsByCategoryView,
-  getProductsByCategoryOrder,
-  getProductsBySearch,
+  checkAllproduct,
 };

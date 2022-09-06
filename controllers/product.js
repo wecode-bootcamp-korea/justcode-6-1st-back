@@ -2,8 +2,21 @@ const productService = require("../services/product");
 
 const getProducts = async (req, res) => {
   try {
-    const list = await productService.getProducts();
-    res.status(200).json({ data: list });
+    const pageInfo = req.query;
+    const category = pageInfo["category"];
+    const search = pageInfo["search"];
+    const orderBy = pageInfo["orderBy"];
+    const page = parseInt(pageInfo["page"]);
+    const pagesize = parseInt(pageInfo["pageSize"]);
+
+    const getProducts = await productService.getProducts(
+      category,
+      search,
+      orderBy,
+      page,
+      pagesize
+    );
+    res.status(200).json({ data: getProducts });
   } catch (err) {
     console.log(err);
     res.status(err.statusCode || 500).json({ message: err.message });
@@ -13,38 +26,9 @@ const getProducts = async (req, res) => {
 const getProductsById = async (req, res) => {
   try {
     const productId = req.params.id;
-    console.log(productId);
+
     const list = await productService.getProductsById(productId);
-    res.status(200).json({ data: list });
-  } catch (err) {
-    console.log(err);
-    res.status(err.statusCode || 500).json({ message: err.message });
-  }
-};
-
-const getProductsByCategory = async (req, res) => {
-  try {
-    const pageInfo = req.query;
-    const category = pageInfo["category"];
-    const orderBy = pageInfo["orderBy"];
-    const list = await productService.getProductsByCategory(category, orderBy);
-    res.status(200).json({ data: list });
-  } catch (err) {
-    console.log(err);
-    res.status(err.statusCode || 500).json({ message: err.message });
-  }
-};
-
-const getProductsBySearch = async (req, res) => {
-  try {
-    const pageInfo = req.query;
-    const word = pageInfo["name"];
-    if (!word) {
-      return res.status(400).json({ message: "NONE_WORD" });
-    }
-    const list = await productService.getProductsBySearch(word);
-
-    res.status(200).json({ data: list });
+    res.status(200).json({ data: list[0] });
   } catch (err) {
     console.log(err);
     res.status(err.statusCode || 500).json({ message: err.message });
@@ -54,6 +38,4 @@ const getProductsBySearch = async (req, res) => {
 module.exports = {
   getProducts,
   getProductsById,
-  getProductsByCategory,
-  getProductsBySearch,
 };

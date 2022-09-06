@@ -37,13 +37,12 @@ CREATE TABLE `address` (
 CREATE TABLE `bundle` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
-  `bundle_option` varchar(50) NOT NULL,
-  `price` int NOT NULL,
-  `quantity` int NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bundle_option` varchar(50) DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `bundle_product_id_fk` (`product_id`),
-  CONSTRAINT `bundle_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `bundle_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,11 +59,12 @@ CREATE TABLE `carts` (
   `quantity` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `carts_user_id_fk` (`user_id`),
-  KEY `carts_bundle_id_fk` (`bundle_id`),
-  CONSTRAINT `carts_bundle_id_fk` FOREIGN KEY (`bundle_id`) REFERENCES `bundle` (`id`),
-  CONSTRAINT `carts_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id` (`user_id`),
+  KEY `bundle_id` (`bundle_id`),
+  CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`bundle_id`) REFERENCES `bundle` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,9 +118,10 @@ CREATE TABLE `product_images` (
   `image` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `product_images_product_id_fk` (`product_id`),
-  CONSTRAINT `product_images_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +199,8 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,13 +233,9 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220830065951'),
   ('20220901065531'),
   ('20220901065540'),
-  ('20220906124629'),
-  ('20220906125113'),
-  ('20220906125134'),
-  ('20220906125153'),
-  ('20220906125201'),
-  ('20220906125208'),
-  ('20220906125220'),
-  ('20220906125232'),
-  ('20220906132928');
+  ('20220901132041'),
+  ('20220902102336'),
+  ('20220903091738'),
+  ('20220903133923');
+
 UNLOCK TABLES;

@@ -36,7 +36,7 @@ CREATE TABLE `address` (
 CREATE TABLE `bundle` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
-  `bundle_option` varchar(255) DEFAULT NULL,
+  `bundle_option` varchar(50) DEFAULT NULL,
   `price` int DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -65,24 +65,23 @@ CREATE TABLE `carts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `order`
+-- Table structure for table `orders`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `cart_id` int NOT NULL,
-  `address_id` int NOT NULL,
+  `products_id` int NOT NULL,
+  `orderNumber` int NOT NULL,
+  `quantity` int NOT NULL,
   `created_at` timestamp NULL DEFAULT (now()),
   PRIMARY KEY (`id`),
-  KEY `address_id` (`address_id`),
-  KEY `cart_id` (`cart_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
-  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
-  CONSTRAINT `order_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `products_id` (`products_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -96,8 +95,8 @@ CREATE TABLE `point` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `point` int DEFAULT NULL,
+  `history` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT (now()),
-  `description` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `point_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -117,7 +116,7 @@ CREATE TABLE `product_images` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +162,7 @@ CREATE TABLE `reviews` (
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`review_comment_id`) REFERENCES `reviews` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,8 +192,9 @@ CREATE TABLE `users` (
   `birth` int NOT NULL,
   `gender` varchar(50) NOT NULL,
   `isConsent` tinyint(1) DEFAULT NULL,
+  `profilePicture` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,9 +229,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220901065540'),
   ('20220901132041'),
   ('20220902102336'),
-<<<<<<< HEAD
-  ('20220903091738');
-=======
-  ('20220903133923');
->>>>>>> 0fb6154 ([add]: 마이페이지-내정보 (토큰오류 발생))
+  ('20220903091738'),
+  ('20220903133923'),
+  ('20220905115741');
 UNLOCK TABLES;

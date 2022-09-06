@@ -11,7 +11,6 @@ const commonAuth = async (req, res) => {
       const user = await authDao.getUserById(userId);
 
       if (!user) {
-        console.log(user);
         res.status(404).json({ result: "false1" });
       } else {
         res.status(200).json({ result: true });

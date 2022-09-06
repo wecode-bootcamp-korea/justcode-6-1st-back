@@ -46,7 +46,7 @@ const getProductsById = async (productId) => {
   try {
     const getProductsById = await myDataSource.query(
       `
-    SELECT
+    SELECT DISTINCT
       products.id,
       name,
       description,

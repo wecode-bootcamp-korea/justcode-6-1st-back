@@ -25,7 +25,7 @@ const getProducts = async (filterType, orderByType, pagination) => {
     image_thumbnail,
     view_count, 
     order_count,
-    created_at
+    products.created_at
     FROM products
     JOIN bundle ON products.id = bundle.product_id
     ${filterType}
@@ -85,8 +85,7 @@ const getProductsById = async (productId) => {
        'name', users.name,
          'content', content,
          'rating', rating,
-         'created_at', created_at,
-         'review_comment_id', review_comment_id
+         'created_at', reviews.created_at
        ))as reviews
     FROM 
     reviews

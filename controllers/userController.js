@@ -93,7 +93,6 @@ const userData = async (req, res) => {
   try {
     const userId = req.userId;
     const user = await userService.userData(userId);
-    console.log(user);
     return res.status(201).json({ data: user });
   } catch (err) {
     res.status(500).json({ message: "ERROR: USERDATA" });

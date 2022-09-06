@@ -57,8 +57,8 @@ const userData = async (userId) => {
     obj.orderList = JSON.parse(obj.orderList);
     obj.reviews = JSON.parse(obj.reviews);
   }
-
-  return getUserDataById;
+  const userDatabyId = getUserDataById[0];
+  return userDatabyId;
 };
 
 module.exports = { createUser, userLogin, userData };

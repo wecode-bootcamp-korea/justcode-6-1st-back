@@ -7,7 +7,7 @@ const createCarts = async (req, res) => {
 };
 
 const getCarts = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
   const getCarts = await cartsService.getCarts(userId);
   res.status(200).json({ data: getCarts });
 };

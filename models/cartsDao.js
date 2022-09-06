@@ -17,20 +17,20 @@ const createCarts = async (userId, bundleId, quantity) => {
 
 const getCarts = async (userId) => {
   try {
-    const DELIVERY_FEE = 3000;
+    const DELIVERY_FEE = 3500;
     const FREE_DELIVERY_PRICE = 50000;
 
     const carts = await myDataSource.query(
       `
       SELECT
-        carts.user_id,
-        carts.id as cart_id,
-        carts.bundle_id,
-        products.name,
-        bundle.bundle_option,
-        bundle.price as bundle_price,
+        carts.id as id,
+        products.productor as brandName,
+        products.name as itemName,
+        products.image_thumbnail as img,
+        bundle.bundle_option as options,
+        bundle.price as price,
         carts.quantity,
-        bundle.price * carts.quantity as cart_price
+        bundle.price * carts.quantity as priceByCart
       FROM
       carts
       JOIN bundle ON bundle_id = bundle.id
@@ -53,15 +53,27 @@ const getCarts = async (userId) => {
     );
 
     const totalPrice = Number(totalPriceAndQuantity[0].total_price);
-    const deleveryFee =
-      totalPrice >= FREE_DELIVERY_PRICE || totalPrice === 0 ? 0 : DELIVERY_FEE;
+
+    const deliveryFeeByCart = () => {
+      const totalPriceBycart = carts.map((cart) => cart.priceByCart);
+      let result = [];
+      for (let i = 0; i < totalPriceBycart.length; i++) {
+        if (totalPriceBycart[i] < FREE_DELIVERY_PRICE) {
+          result.push(DELIVERY_FEE);
+        }
+      }
+      const totalDeliveryFee = result.reduce((prev, curr) => prev + curr, 0);
+      return totalDeliveryFee;
+    };
+
+    const totalDeliveryFee = Number(deliveryFeeByCart());
 
     return {
-      cart_list: carts,
-      total_price: totalPrice,
-      total_qantity: Number(totalPriceAndQuantity[0].total_quantity),
-      delevery_fee: deleveryFee,
-      order_price: totalPrice + deleveryFee,
+      cartList: carts,
+      totalPrice: totalPrice,
+      totalQantity: Number(totalPriceAndQuantity[0].total_quantity),
+      deliveryFee: totalDeliveryFee,
+      orderPrice: totalPrice + totalDeliveryFee,
     };
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");

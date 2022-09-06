@@ -1,10 +1,17 @@
 -- migrate:up
-CREATE TABLE `users` (
-  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phoneNumber` varchar(255) NOT NULL
-);
+CREATE TABLE users (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email VARCHAR(200) NOT NULL,
+  password VARCHAR(200) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  phone_number INT NOT NULL,
+  birth INT NOT NULL,
+  gender VARCHAR(50) NOT NULL,
+  isConsent BOOLEAN NULL,
+  profile_image VARCHAR(1000) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+  );
 
 -- migrate:down
+DROP TABLE users;

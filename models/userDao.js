@@ -11,7 +11,7 @@ const createUser = async (
 ) => {
   const user = await myDataSource.query(
     `
-    INSERT INTO users(email, password, name, phoneNumber, birth, gender, isConsent)
+    INSERT INTO users(email, password, name, phone_number, birth, gender, isConsent)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `,
     [email, hashedPw, name, phoneNumber, birth, gender, consent]
@@ -38,23 +38,24 @@ const userData = async (userId) => {
       users.id as "userId",
       users.email as "email",
       users.name as "name",
-      users.phoneNumber as "phoneNumber",
+      users.phone_number as "phoneNumber",
       users.birth as "birth",
       users.gender as "gender",
       users.isConsent as "isConsent",
-      users.profilePicture as "profilePicture",
+      users.profile_image as "profilePicture",
         a.address,
         p.point,
         o.orderList,
         r.reviews
     FROM users
+
     LEFT JOIN (
       SELECT
         user_id,
         JSON_ARRAYAGG(
           JSON_OBJECT(
             'addressId', address.id,
-            'postalCode', address.postalCode,
+            'postalCode', address.postal_code,
             'address', address.address,
             'address1', address.address1
           )
@@ -62,26 +63,28 @@ const userData = async (userId) => {
       FROM address
       GROUP BY user_id )
     a ON users.id = a.user_id
+
     LEFT JOIN (
       SELECT
         user_id,
         JSON_ARRAYAGG(
           JSON_OBJECT(
-            'pointId', point.id,
-            'point', point.point,
-            'history', point.history,
-            'createdAt', point.created_at
+            'pointId', points.id,
+            'point', points.point,
+            'history', points.history,
+            'createdAt', points.created_at
           )
         ) as point
-      FROM point
+      FROM points
       GROUP BY user_id )
     p ON users.id = p.user_id
+
     LEFT JOIN (
       SELECT
         user_id,
         JSON_ARRAYAGG(
           JSON_OBJECT(
-            'orderNumber', orders.orderNumber,
+            'orderNumber', orders.order_number,
             'productId', products.id,
             'productName', products.name,
             'imageThumbnail', products.image_thumbnail,
@@ -93,6 +96,7 @@ const userData = async (userId) => {
       JOIN products ON products.id = orders.product_id
       GROUP BY user_id )
     o ON users.id = o.user_id
+
     LEFT JOIN (
       SELECT
         user_id,

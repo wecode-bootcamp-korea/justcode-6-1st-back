@@ -18,13 +18,14 @@
 CREATE TABLE `address` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `address1` varchar(255) NOT NULL,
-  `postalCode` varchar(255) NOT NULL,
+  `postal_code` int NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `address1` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `address_user_id_fk` (`user_id`),
+  CONSTRAINT `address_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,13 +37,14 @@ CREATE TABLE `address` (
 CREATE TABLE `bundle` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
-  `bundle_option` varchar(50) DEFAULT NULL,
-  `price` int DEFAULT NULL,
-  `quantity` int DEFAULT NULL,
+  `bundle_option` varchar(50) NOT NULL,
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  CONSTRAINT `bundle_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `bundle_product_id_fk` (`product_id`),
+  CONSTRAINT `bundle_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,11 +58,12 @@ CREATE TABLE `carts` (
   `user_id` int NOT NULL,
   `bundle_id` int NOT NULL,
   `quantity` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `bundle_id` (`bundle_id`),
-  CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`bundle_id`) REFERENCES `bundle` (`id`)
+  KEY `carts_user_id_fk` (`user_id`),
+  KEY `carts_bundle_id_fk` (`bundle_id`),
+  CONSTRAINT `carts_bundle_id_fk` FOREIGN KEY (`bundle_id`) REFERENCES `bundle` (`id`),
+  CONSTRAINT `carts_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -74,15 +77,33 @@ CREATE TABLE `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
-  `orderNumber` int NOT NULL,
+  `order_number` int NOT NULL,
   `quantity` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT (now()),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `orders_ibfk_2` (`product_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `orders_user_id_fk` (`user_id`),
+  KEY `orders_product_id_fk` (`product_id`),
+  CONSTRAINT `orders_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  CONSTRAINT `orders_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `points`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `points` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `point` int NOT NULL,
+  `history` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `points_user_id_fk` (`user_id`),
+  CONSTRAINT `points_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,11 +115,12 @@ CREATE TABLE `orders` (
 CREATE TABLE `product_images` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `product_images_product_id_fk` (`product_id`),
+  CONSTRAINT `product_images_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,18 +131,19 @@ CREATE TABLE `product_images` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `category` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `productor` varchar(255) DEFAULT NULL,
-  `image_thumbnail` varchar(255) DEFAULT NULL,
+  `category` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `productor` varchar(200) NOT NULL,
+  `image_thumbnail` varchar(200) NOT NULL,
   `view_count` int DEFAULT NULL,
   `order_count` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT (now()),
   `fixedPrice` int NOT NULL,
   `content` varchar(200) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,18 +156,15 @@ CREATE TABLE `reviews` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
-  `content` varchar(255) NOT NULL,
+  `content` varchar(200) NOT NULL,
   `rating` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT (now()),
-  `review_comment_id` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `product_id` (`product_id`),
-  KEY `review_comment_id` (`review_comment_id`),
-  CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`review_comment_id`) REFERENCES `reviews` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `reviews_user_id_fk` (`user_id`),
+  KEY `reviews_product_id_fk` (`product_id`),
+  CONSTRAINT `reviews_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  CONSTRAINT `reviews_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,16 +187,18 @@ CREATE TABLE `schema_migrations` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phoneNumber` varchar(255) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone_number` int NOT NULL,
   `birth` int NOT NULL,
   `gender` varchar(50) NOT NULL,
   `isConsent` tinyint(1) DEFAULT NULL,
-  `profilePicture` varchar(255) DEFAULT NULL,
+  `profile_image` varchar(1000) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,9 +231,5 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220830065951'),
   ('20220901065531'),
   ('20220901065540'),
-  ('20220901132041'),
-  ('20220902102336'),
-  ('20220903091738'),
-  ('20220903133923'),
-  ('20220905115741');
+  ('20220906124629');
 UNLOCK TABLES;

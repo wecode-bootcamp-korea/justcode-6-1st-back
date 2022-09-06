@@ -8,6 +8,8 @@ const createApp = () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use(morgan("dev"));
+  app.use(cors());
   app.use(router);
   app.use(morgan("tiny"));
 

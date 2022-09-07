@@ -89,6 +89,24 @@ INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`crea
 INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (88,30,'파인애플피자',6000,10,'2022-09-06 22:06:59');
 INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (89,30,'파인애플피자 + 피클',7200,10,'2022-09-06 22:06:59');
 INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (90,30,'파인애플피자 + 콜라',9000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (91,31,'빅치킨마요',5500,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (92,31,'빅빅치킨마요',7000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (93,31,'빅빅빅치킨마요',9000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (94,32,'치킨바베큐',16000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (95,32,'치킨바베큐 두마리',20000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (96,32,'치킨바베큐 세마리',25000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (97,33,'대부도포도와인',40000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (98,33,'대부도포도와인 선물세트',55000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (99,33,'대부도포도와인 유리잔 포함',70000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (100,34,'과일화채 수박맛',11000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (101,34,'과일화채 아보카도맛',22000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (102,34,'과일화채 두리안맛',33000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (103,35,'건강쥬스',4000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (104,35,'건강쥬스 한박스',30000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (105,35,'건강쥬스 세박스',60000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (106,36,'호두파이',6000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (107,36,'호두파이 선물세트',12000,10,'2022-09-06 22:06:59');
+INSERT INTO `bundle` (`id`,`product_id`,`bundle_option`,`price`,`quantity`,`created_at`) VALUES (108,36,'호두파이 한박스',30000,10,'2022-09-06 22:06:59');
 
 
 -- migrate:down

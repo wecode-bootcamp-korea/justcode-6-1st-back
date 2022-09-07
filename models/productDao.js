@@ -1,14 +1,20 @@
-const { myDataSource } = require("./dataSource");
+const { myDataSource } = require("../utils/dataSource");
 
-const checkAllproduct = async () => {
-  const [Allproduct] = await myDataSource.query(
-    `
+const countAllProducts = async () => {
+  try {
+    const [AllProducts] = await myDataSource.query(
+      `
     SELECT COUNT(*)
     FROM
     products
     `
-  );
-  return Object.values(Allproduct)[0];
+    );
+    return Object.values(AllProducts)[0];
+  } catch (err) {
+    const error = new Error("INVALID_DATA_INPUT");
+    error.statusCode = "500";
+    throw error;
+  }
 };
 
 const getProducts = async (filterType, orderByType, pagination) => {
@@ -42,9 +48,9 @@ const getProducts = async (filterType, orderByType, pagination) => {
   }
 };
 
-const getProductsById = async (productId) => {
+const getProductById = async (productId) => {
   try {
-    const getProductsById = await myDataSource.query(
+    const product = await myDataSource.query(
       `
     SELECT DISTINCT
       products.id,
@@ -95,7 +101,7 @@ const getProductsById = async (productId) => {
     `,
       [productId]
     );
-    return getProductsById;
+    return product;
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
     error.statusCode = "500";
@@ -105,6 +111,6 @@ const getProductsById = async (productId) => {
 
 module.exports = {
   getProducts,
-  getProductsById,
-  checkAllproduct,
+  getProductById,
+  countAllProducts,
 };

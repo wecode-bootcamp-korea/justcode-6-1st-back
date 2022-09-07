@@ -1,4 +1,4 @@
-const { myDataSource } = require("./dataSource");
+const { myDataSource } = require("../utils/dataSource");
 
 const createUser = async (email, password, name) => {
   await myDataSource.query(

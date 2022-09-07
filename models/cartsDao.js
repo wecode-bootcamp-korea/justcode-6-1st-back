@@ -1,8 +1,8 @@
-const { myDataSource } = require("./dataSource");
+const { myDataSource } = require("../utils/dataSource");
 
-const createCarts = async (userId, bundleId, quantity) => {
+const createCart = async (userId, bundleId, quantity) => {
   try {
-    const creatCarts = await myDataSource.query(
+    await myDataSource.query(
       `
     INSERT INTO carts (user_id, bundle_id, quantity) VALUE (?,?,?)
     `,
@@ -42,10 +42,12 @@ const getCarts = async (userId) => {
     const totalPriceAndQuantity = await myDataSource.query(
       `
       SELECT
+      users.name,
       SUM(bundle.price*carts.quantity) as total_price,
       SUM(carts.quantity) as total_quantity
       FROM
       carts
+      JOIN users ON users.id = carts.user_id
       JOIN bundle ON bundle_id = bundle.id
       JOIN products on products.id = bundle.product_id
       WHERE carts.user_id = ${userId}
@@ -53,6 +55,7 @@ const getCarts = async (userId) => {
     );
 
     const totalPrice = Number(totalPriceAndQuantity[0].total_price);
+    const userName = totalPriceAndQuantity[0].name;
 
     const deliveryFeeByCart = () => {
       const totalPriceBycart = carts.map((cart) => cart.priceByCart);
@@ -69,6 +72,7 @@ const getCarts = async (userId) => {
     const totalDeliveryFee = Number(deliveryFeeByCart());
 
     return {
+      name: userName,
       cartList: carts,
       totalPrice: totalPrice,
       totalQantity: Number(totalPriceAndQuantity[0].total_quantity),
@@ -82,9 +86,9 @@ const getCarts = async (userId) => {
   }
 };
 
-const updateCarts = async (userId, cartsId, quantity) => {
+const updateCart = async (userId, cartsId, quantity) => {
   try {
-    const updateCarts = await myDataSource.query(
+    const updateCart = await myDataSource.query(
       `
       UPDATE
        carts
@@ -93,7 +97,7 @@ const updateCarts = async (userId, cartsId, quantity) => {
       WHERE user_id = ${userId} AND carts.id = ${cartsId}
     `
     );
-    return updateCarts;
+    return updateCart;
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
     error.statusCode = "500";
@@ -119,9 +123,9 @@ const deleteCarts = async (userId, cartsId) => {
   }
 };
 
-const existCart = async (userId, bundleId) => {
+const existCheckCart = async (userId, bundleId) => {
   try {
-    const result = await myDataSource.query(
+    const carts = await myDataSource.query(
       `
     SELECT exists (
       SELECT
@@ -132,7 +136,7 @@ const existCart = async (userId, bundleId) => {
       ) AS isExists
     `
     );
-    return +result[0].isExists; // + 붙이면 true false  반환
+    return +carts[0].isExists; // + 붙이면 true false  반환
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
     error.statusCode = "500";
@@ -142,7 +146,7 @@ const existCart = async (userId, bundleId) => {
 
 const plusQuantity = async (userId, bundleId) => {
   try {
-    const updateCarts = await myDataSource.query(
+    const updateCart = await myDataSource.query(
       `
       UPDATE
        carts
@@ -151,7 +155,7 @@ const plusQuantity = async (userId, bundleId) => {
       WHERE user_id = ${userId} AND bundle_id = ${bundleId}
     `
     );
-    return updateCarts;
+    return updateCart;
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
     error.statusCode = "500";
@@ -160,10 +164,10 @@ const plusQuantity = async (userId, bundleId) => {
 };
 
 module.exports = {
-  createCarts,
+  createCart,
   getCarts,
-  updateCarts,
+  updateCart,
   deleteCarts,
-  existCart,
+  existCheckCart,
   plusQuantity,
 };

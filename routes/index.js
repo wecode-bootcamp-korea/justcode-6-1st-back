@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const userRouter = require("./userRouter");
-const productRouter = require("./product");
-const cartsRouter = require("./carts");
+const productRouter = require("./productRouter");
+const cartsRouter = require("./cartsRouter");
 
 router.get("/", (req, res) => {
   res.json({ message: "/ pong" });

@@ -7,7 +7,7 @@ INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (5,
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (6,2,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (7,3,'https://cdn.pixabay.com/photo/2020/02/02/15/07/meat-4813261__340.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (8,3,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
-INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (9,3,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (9,3,'https://cdn.pixabay.com/photo/2019/11/23/15/25/korea-food-4647402_1280.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (10,4,'https://cdn.pixabay.com/photo/2015/01/12/15/08/water-noodle-597366__340.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (11,4,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (12,4,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
@@ -84,10 +84,26 @@ INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (82
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (83,29,'https://live.staticflickr.com/8329/8398597967_723e52ddb6_k.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (84,29,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (85,29,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
-INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (86,30,'https://meeco.kr/files/attach/images/134/946/550/024/39767210b685448cba5cfb06c055520b.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (86,30,'https://cdn.pixabay.com/photo/2016/03/05/20/11/american-1238697__480.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (87,30,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (88,30,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
-
-
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (89,31,'https://t1.daumcdn.net/cfile/tistory/99CEED375A50626C2A','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (90,31,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (91,31,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (92,32,'https://cdn.pixabay.com/photo/2020/06/14/03/38/barbecue-5296433_1280.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (93,32,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (94,32,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (95,33,'https://cdn.pixabay.com/photo/2022/04/26/09/38/grapes-7157943__480.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (96,33,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (97,33,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (98,34,'https://cdn.pixabay.com/photo/2017/06/02/18/24/watermelon-2367029__480.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (99,34,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (100,34,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (101,35,'https://cdn.pixabay.com/photo/2018/09/23/09/31/smoothie-3697014__480.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (102,35,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (103,35,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (104,36,'https://cdn.pixabay.com/photo/2022/06/23/14/42/pie-7279977__480.jpg','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (105,36,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (106,36,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
 -- migrate:down
 

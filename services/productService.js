@@ -1,16 +1,14 @@
-const { myDataSource } = require("../models/dataSource");
 const productDao = require("../models/productDao");
 
-const getProductsById = async (productId) => {
-  const getProductsById = await productDao.getProductsById(productId);
-  for (const obj of getProductsById) {
-    /// of 사용법 익히기
-    obj.bundles = JSON.parse(obj.bundles); /// 문자열 json 전환  // 이 부분 고난이도임
+const getProductById = async (productId) => {
+  const getProductById = await productDao.getProductById(productId);
+  for (const obj of getProductById) {
+    obj.bundles = JSON.parse(obj.bundles);
     obj.images = JSON.parse(obj.images);
     obj.reviews = JSON.parse(obj.reviews);
   }
 
-  return getProductsById;
+  return getProductById;
 };
 
 const getProducts = async (category, search, orderBy, page, pageSize) => {
@@ -18,19 +16,12 @@ const getProducts = async (category, search, orderBy, page, pageSize) => {
   const orderByType = getOrderByType(orderBy);
   const pagination = getStartNum(page, pageSize);
 
-  /// 상품갯수보다 많은 페이지로 이동할경우 null반환 //
-  const cntList = productDao.checkAllproduct();
-  if (page > Math.round(cntList / pageSize)) {
+  const cntList = productDao.countAllProducts();
+  if (page > Math.ceil(cntList / pageSize)) {
     return null;
   }
 
-  const getProducts = await productDao.getProducts(
-    filterType,
-    orderByType,
-    pagination
-  );
-
-  return getProducts;
+  return await productDao.getProducts(filterType, orderByType, pagination);
 };
 
 const getStartNum = (page, pageSize) => {
@@ -86,11 +77,11 @@ const getOrderByType = (orderBy) => {
   } else if (orderBy == "viewCount") {
     return OrderByType.VIEW_COUNT;
   } else if (orderBy == "orderCount") {
-    return OrderByType.VIEW_COUNT;
+    return OrderByType.ORDER_COUNT;
   } else return "";
 };
 
 module.exports = {
   getProducts,
-  getProductsById,
+  getProductById,
 };

@@ -1,29 +1,21 @@
 const userService = require("../services/userService");
+const {
+  validateEmail,
+  validatePassword,
+  validateNumber,
+} = require("../utils/validation");
 
 const createUser = async (req, res) => {
-  const { email, password, name, phoneNumber, birth, gender } = req.body;
   try {
+    const { email, password, name, phoneNumber, birth, gender } = req.body;
+
     if (!(email && password && name && phoneNumber && birth && gender)) {
-      res.status(400).json({ message: "ERROR: KEY" });
-      return;
+      return res.status(400).json({ message: "ERROR: KEY" });
     }
 
-    const expEmailText =
-      /^[A-Za-z0-9\.\-]+\@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
-    if (!expEmailText.test(email)) {
-      res.status(400).json({ message: "ERROR: EMAIL_INVALID" });
-      return;
-    }
-    if (password.length < 10) {
-      res.status(400).json({ message: "ERROR: PASSWORD_INVALID" });
-      return;
-    }
-
-    const expHpText = /^\d{10,11}$/;
-    if (!expHpText.test(phoneNumber)) {
-      res.status(400).json({ message: "ERROR: PHONENUMBER_INVALID" });
-      return;
-    }
+    validateEmail(email);
+    validatePassword(password);
+    validateNumber(phoneNumber);
 
     const result = await userService.createUser(
       email,
@@ -35,32 +27,27 @@ const createUser = async (req, res) => {
     );
 
     if (!result) {
-      res.status(400).json({ message: "ERROR: EMAIL_ALREADY_USE" });
-      return;
+      return res.status(400).json({ message: "ERROR: EMAIL_ALREADY_USE" });
     }
 
     res.status(201).json({ message: "userCreated" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "ERROR: USERCREATED" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
-/** 로그인 */
 const userLogin = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
+
     if (!(email && password)) {
       res.status(400).json({ message: "ERROR: KEY" });
       return;
     }
-    const expEmailText =
-      /^[A-Za-z0-9\.\-]+\@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
-    if (!expEmailText.test(email)) {
-      res.status(400).json({ message: "ERROR: EMAIL_INVALID" });
-      return;
-    }
+
+    validateEmail(email);
+    validatePassword(password);
 
     const user = await userService.userLogin(email, password);
 
@@ -76,7 +63,7 @@ const userLogin = async (req, res) => {
     res.status(200).json({ message: "LOGIN_SUCCESS!", token: user.token });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "ERROR: LOGIN" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
@@ -86,7 +73,8 @@ const userData = async (req, res) => {
     const user = await userService.userData(userId);
     return res.status(201).json({ data: user });
   } catch (err) {
-    res.status(500).json({ message: "ERROR: USERDATA" });
+    console.log(err);
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 

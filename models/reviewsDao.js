@@ -1,4 +1,4 @@
-const { myDataSource } = require("./dataSource");
+const { myDataSource } = require("../utils/dataSource");
 
 const createReviews = async (userId, productId, content, rating) => {
   return await myDataSource.query(

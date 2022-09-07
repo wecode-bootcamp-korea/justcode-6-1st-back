@@ -1,7 +1,6 @@
+const userDao = require("../models/userDao");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-const userDao = require("../models/userDao");
 
 const createUser = async (
   email,
@@ -28,7 +27,7 @@ const createUser = async (
     );
     return user;
   } else {
-    const user = true;
+    const user = false;
     return user;
   }
 };
@@ -38,7 +37,6 @@ const userLogin = async (email, password) => {
 
   if (user) {
     const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-    //token 생성
     const token = jwt.sign({ userId: user.id }, "codingResKey");
     const userLoginData = {
       user: user,

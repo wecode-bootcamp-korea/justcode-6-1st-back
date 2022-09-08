@@ -24,6 +24,16 @@ INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`cre
 INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (23,5,23,555553,1,'2022-09-06 22:31:57');
 INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (24,5,24,555554,3,'2022-09-06 22:31:57');
 INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (25,5,25,555555,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (26,6,26,666661,2,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (27,6,27,666662,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (28,6,28,666663,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (29,6,29,666664,3,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (30,6,30,666665,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (31,7,31,777771,2,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (32,7,32,777772,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (33,7,33,777773,1,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (34,7,34,777774,3,'2022-09-06 22:31:57');
+INSERT INTO `orders` (`id`,`user_id`,`product_id`,`order_number`,`quantity`,`created_at`) VALUES (35,7,35,777775,1,'2022-09-06 22:31:57');
 
 
 -- migrate:down

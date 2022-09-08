@@ -14,6 +14,12 @@ INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (12,
 INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (13,5,5000,'가입 축하 기념','2022-09-06 22:03:37');
 INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (14,5,3000,'빌린돈으로 충전','2022-09-06 22:03:37');
 INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (15,5,-2000,'선물로 퉁칠라고 사용','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (16,6,5000,'가입 축하 기념','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (17,6,20000,'동생 저금통에 있던돈 충전','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (18,6,-10000,'훔친거 들켜서 사용','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (19,7,5000,'가입 축하 기념','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (20,7,10000,'고양이가 눌러서 충전','2022-09-06 22:03:37');
+INSERT INTO `points` (`id`,`user_id`,`point`,`history`,`created_at`) VALUES (21,7,-2000,'고양이가 배고파해서 사용','2022-09-06 22:03:37');
 
 -- migrate:down
 

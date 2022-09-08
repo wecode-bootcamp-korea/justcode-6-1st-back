@@ -19,7 +19,7 @@ const createReviews = async (req, res) => {
     return res.status(201).json({ message: "CREATE_REVIEW" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ ERROR: "CREATE_REVIEW" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
@@ -30,7 +30,7 @@ const getReviews = async (req, res) => {
     return res.status(200).json({ data: getReviews });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ ERROR: "GET_REVIEW" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
@@ -42,7 +42,7 @@ const updateReviews = async (req, res) => {
     return res.status(200).json({ message: "UPDATE_REVIEWS" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ ERROR: "UPDATE_REVIEWS" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
@@ -54,7 +54,7 @@ const deleteReviews = async (req, res) => {
     res.status(200).json({ message: "DELETE_REVIEWS" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ ERROR: "DELETE_REVIEWS" });
+    res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 

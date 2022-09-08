@@ -146,6 +146,26 @@ const updateUser = async (
   );
 };
 
+const updateAddress = async (
+  addressId,
+  userId,
+  postalCode,
+  address,
+  address1
+) => {
+  return await myDataSource.query(
+    `
+      UPDATE
+      users
+      SET
+        postal_code = ${postalCode},
+        address = ${address},
+        address1 = ${address1},
+      WHERE id = ${addressId} AND user_id = ${userId}
+    `
+  );
+};
+
 const userDatabyId = async (userId) => {
   const [user] = await myDataSource.query(
     `
@@ -174,6 +194,7 @@ module.exports = {
   userLogin,
   userData,
   updateUser,
+  updateAddress,
   userDatabyId,
   updatePassword,
 };

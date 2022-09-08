@@ -78,4 +78,47 @@ const userData = async (req, res) => {
   }
 };
 
-module.exports = { createUser, userLogin, userData };
+const updateUser = async (req, res) => {
+  try {
+    const { name, phoneNumber, birth, gender, isConsent, profileImage } =
+      req.body;
+    const userId = req.userId;
+    await userService.updateUser(
+      userId,
+      name,
+      phoneNumber,
+      birth,
+      gender,
+      isConsent,
+      profileImage
+    );
+    return res.status(200).json({ message: "UPDATE_USER" });
+  } catch (err) {
+    console.log(err);
+    res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const { password, newPassword } = req.body;
+    const userId = req.userId;
+
+    validatePassword(password);
+    validatePassword(newPassword);
+
+    await userService.updatePassword(userId, password, newPassword);
+    return res.status(200).json({ message: "UPDATE_PASSWORD" });
+  } catch (err) {
+    console.log(err);
+    res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  createUser,
+  userLogin,
+  userData,
+  updateUser,
+  updatePassword,
+};

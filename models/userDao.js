@@ -121,4 +121,59 @@ const userData = async (userId) => {
   return user;
 };
 
-module.exports = { createUser, userLogin, userData };
+const updateUser = async (
+  userId,
+  name,
+  phoneNumber,
+  birth,
+  gender,
+  isConsent,
+  profileImage
+) => {
+  return await myDataSource.query(
+    `
+      UPDATE
+      users
+      SET
+        name = '${name}',
+        phone_number = ${phoneNumber},
+        birth = ${birth},
+        gender = '${gender}',
+        isConsent = ${isConsent},
+        profile_image = '${profileImage}'
+      WHERE id = ${userId}
+    `
+  );
+};
+
+const userDatabyId = async (userId) => {
+  const [user] = await myDataSource.query(
+    `
+    SELECT *
+    FROM users
+    WHERE id = ${userId}
+  `
+  );
+  return user;
+};
+
+const updatePassword = async (userId, hashedPw) => {
+  return await myDataSource.query(
+    `
+      UPDATE
+      users
+      SET
+        password = '${hashedPw}'
+      WHERE id = ${userId}
+    `
+  );
+};
+
+module.exports = {
+  createUser,
+  userLogin,
+  userData,
+  updateUser,
+  userDatabyId,
+  updatePassword,
+};

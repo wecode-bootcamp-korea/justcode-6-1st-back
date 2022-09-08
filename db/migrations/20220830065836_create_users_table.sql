@@ -4,10 +4,10 @@ CREATE TABLE users (
   email VARCHAR(200) NOT NULL,
   password VARCHAR(200) NOT NULL,
   name VARCHAR(50) NOT NULL,
-  phone_number INT NOT NULL,
+  phone_number VARCHAR(50) NOT NULL,
   birth INT NOT NULL,
   gender VARCHAR(50) NOT NULL,
-  isConsent BOOLEAN NULL,
+  isConsent INT NULL,
   profile_image VARCHAR(1000) NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP

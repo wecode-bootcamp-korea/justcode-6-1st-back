@@ -22,6 +22,7 @@ CREATE TABLE `address` (
   `address` varchar(200) NOT NULL,
   `address1` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `address_user_id_fk` (`user_id`),
   CONSTRAINT `address_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -190,7 +191,7 @@ CREATE TABLE `users` (
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `phone_number` varchar(50) NOT NULL,
+  `phone_number` int(11) unsigned zerofill DEFAULT NULL,
   `birth` int NOT NULL,
   `gender` varchar(50) NOT NULL,
   `isConsent` int DEFAULT NULL,

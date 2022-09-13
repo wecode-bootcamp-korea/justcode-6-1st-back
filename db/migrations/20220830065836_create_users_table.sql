@@ -4,7 +4,7 @@ CREATE TABLE users (
   email VARCHAR(200) NOT NULL,
   password VARCHAR(200) NOT NULL,
   name VARCHAR(50) NOT NULL,
-  phone_number VARCHAR(50) NOT NULL,
+  phone_number INT(11) UNSIGNED ZEROFILL,
   birth INT NOT NULL,
   gender VARCHAR(50) NOT NULL,
   isConsent INT NULL,

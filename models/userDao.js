@@ -11,10 +11,19 @@ const createUser = async (
 ) => {
   const user = await myDataSource.query(
     `
-    INSERT INTO users(email, password, name, phone_number, birth, gender, isConsent)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO users(email, password, name, phone_number, birth, gender, isConsent, profile_image)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `,
-    [email, hashedPw, name, phoneNumber, birth, gender, consent]
+    [
+      email,
+      hashedPw,
+      name,
+      phoneNumber,
+      birth,
+      gender,
+      consent,
+      "https://images.pexels.com/photos/4226876/pexels-photo-4226876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ]
   );
   return user;
 };
@@ -123,7 +132,6 @@ const userData = async (userId) => {
 
 const updateUser = async (
   userId,
-  name,
   phoneNumber,
   birth,
   gender,
@@ -135,13 +143,32 @@ const updateUser = async (
       UPDATE
       users
       SET
-        name = '${name}',
         phone_number = ${phoneNumber},
         birth = ${birth},
         gender = '${gender}',
         isConsent = ${isConsent},
         profile_image = '${profileImage}'
       WHERE id = ${userId}
+    `
+  );
+};
+
+const updateAddress = async (
+  addressId,
+  userId,
+  postalCode,
+  address,
+  address1
+) => {
+  return await myDataSource.query(
+    `
+      UPDATE
+      address
+      SET
+        postal_code = ${postalCode},
+        address = '${address}',
+        address1 = '${address1}'
+      WHERE id = ${addressId} AND user_id = ${userId}
     `
   );
 };
@@ -174,6 +201,7 @@ module.exports = {
   userLogin,
   userData,
   updateUser,
+  updateAddress,
   userDatabyId,
   updatePassword,
 };

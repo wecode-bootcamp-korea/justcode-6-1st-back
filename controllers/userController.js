@@ -80,17 +80,29 @@ const userData = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { name, phoneNumber, birth, gender, isConsent, profileImage } =
-      req.body;
-    const userId = req.userId;
-    await userService.updateUser(
-      userId,
-      name,
+    const {
       phoneNumber,
       birth,
       gender,
       isConsent,
-      profileImage
+      profileImage,
+      addressId,
+      postalCode,
+      address,
+      address1,
+    } = req.body;
+    const userId = req.userId;
+    await userService.updateUser(
+      userId,
+      phoneNumber,
+      birth,
+      gender,
+      isConsent,
+      profileImage,
+      addressId,
+      postalCode,
+      address,
+      address1
     );
     return res.status(200).json({ message: "UPDATE_USER" });
   } catch (err) {

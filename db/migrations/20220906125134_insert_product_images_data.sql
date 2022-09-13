@@ -23,7 +23,7 @@ INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (21
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (22,8,'https://cdn.pixabay.com/photo/2019/07/25/01/23/beef-4361462__340.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (23,8,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (24,8,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
-INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (25,9,'https://pixabay.com/ko/photos/%ea%b3%a0%ea%b8%b0-%ec%87%a0%ea%b3%a0%ea%b8%b0-%ec%9d%8c%ec%8b%9d-%ec%8a%a4%ed%85%8c%ec%9d%b4%ed%81%ac-2758553/','2022-09-06 21:58:41');
+INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (25,9,'https://cdn.pixabay.com/photo/2017/09/17/14/23/meat-2758553_960_720.jpg','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (26,9,'https://cdn.pixabay.com/photo/2012/05/04/10/18/two-47085_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (27,9,'https://cdn.pixabay.com/photo/2012/04/23/17/07/three-39116_960_720.png','2022-09-06 21:58:41');
 INSERT INTO `product_images` (`id`,`product_id`,`image`,`created_at`) VALUES (28,10,'https://cdn.pixabay.com/photo/2016/01/22/02/13/meat-1155132__340.jpg','2022-09-06 21:58:41');

@@ -1,22 +1,19 @@
 # Project: Coding_Restaurant
 
----
-
-- _로컬 푸드 마켓 '미래식당' 사이트에 사용된 API 들을 참고하여 필요 기능들을 개발한 클론 프로젝트_
-- 클론 사이트 - 미래식당 https://meesig.com/
+- _로컬 푸드 마켓 '미래식당' 사이트에 사용된 API 들을 참고하여 필요 기능들을 개발한 클론 프로젝트_ (https://meesig.com)
 - 사이트 선정이유 - 팀원 모두가 처음으로 진행한 프로젝트인 만큼 웹서비스에서 보편적으로 구현되는 기능들을 이해하고, 적용할 수 있는 것을 목표로 선정
-- 유튜브 시연영상 - https://youtu.be/f1He2K5uwyI 약 4분
+- 유튜브 시연영상 - https://youtu.be/f1He2K5uwyI (약 4분)
 
-![codingrestaurantmainPNG](file:///Users/Mark/Desktop/coding_restaurant_main.PNG?msec=1663056323007)
-
----
+![codingrestaurantmainPNG](https://user-images.githubusercontent.com/70873668/189848103-401543c2-deec-492d-b466-3a3cfefe7df6.PNG)
 
 ## 1. 개발인원 및 기간
 
 > 2022-08-29 ~ 2022-09-08 (11DAYS)
->
+
 > 개발인원 : 프론트엔드 4명, 백엔드 2명
+
 > 프론트엔드 github - https://github.com/wecode-bootcamp-korea/justcode-6-1st-coding-restaurant-front
+
 > 백엔드 github - https://github.com/wecode-bootcamp-korea/justcode-6-1st-coding-restaurant-back
 
 ---
@@ -33,7 +30,7 @@
 
 https://dbdiagram.io/d/62f5e7dbc2d9cf52fa93b379
 
-![codingrestaurant 4png](<file:///Users/Mark/Downloads/coding-restaurant%20(4).png?msec=1663056322982>)
+![coding-restaurant (4)](https://user-images.githubusercontent.com/70873668/189849987-fd7bb647-9807-4df8-82d6-912f6583151e.png)
 
 ---
 
@@ -41,7 +38,7 @@ https://dbdiagram.io/d/62f5e7dbc2d9cf52fa93b379
 
 https://documenter.getpostman.com/view/22703204/VUxYp3Lz#intro
 
-![스크린샷 20220913 오후 44455png](file:///Users/Mark/Desktop/Sceenshot/스크린샷%202022-09-13%20오후%204.44.55.png?msec=1663056322985)
+![coding-restaurant (4)](https://user-images.githubusercontent.com/70873668/189850285-f7ecbaca-0a0e-4b28-849a-882a55c761e9.png)
 
 ---
 
@@ -77,6 +74,6 @@ https://documenter.getpostman.com/view/22703204/VUxYp3Lz#intro
 
 ---
 
-### 프로젝트에 대한 내용 자세히 보기
+### ▶️ 프로젝트에 대한 내용 자세히 보러가기
 
 https://www.notion.so/wecode/Coding_Restaurant-9b177a84ea674ac7a4291d1ec604ff05

@@ -1,4 +1,4 @@
-const { myDataSource } = require("../utils/dataSource");
+const { myDataSource } = require('../utils/dataSource');
 
 const createCart = async (userId, bundleId, quantity) => {
   try {
@@ -9,17 +9,14 @@ const createCart = async (userId, bundleId, quantity) => {
       [userId, bundleId, quantity]
     );
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
 
-const getCarts = async (userId) => {
+const getCartInfo = async (userId) => {
   try {
-    const DELIVERY_FEE = 3500;
-    const FREE_DELIVERY_PRICE = 50000;
-
     const carts = await myDataSource.query(
       `
       SELECT
@@ -36,9 +33,18 @@ const getCarts = async (userId) => {
       JOIN bundle ON bundle_id = bundle.id
       JOIN products on products.id = bundle.product_id
       WHERE carts.user_id = ${userId}
-    `
+      `
     );
+    return carts;
+  } catch (err) {
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
+    throw error;
+  }
+};
 
+const getCartDetailInfo = async (userId) => {
+  try {
     const totalPriceAndQuantity = await myDataSource.query(
       `
       SELECT
@@ -53,35 +59,10 @@ const getCarts = async (userId) => {
       WHERE carts.user_id = ${userId}
       `
     );
-
-    const totalPrice = Number(totalPriceAndQuantity[0].total_price);
-    const userName = totalPriceAndQuantity[0].name;
-
-    const deliveryFeeByCart = () => {
-      const totalPriceBycart = carts.map((cart) => cart.priceByCart);
-      let result = [];
-      for (let i = 0; i < totalPriceBycart.length; i++) {
-        if (totalPriceBycart[i] < FREE_DELIVERY_PRICE) {
-          result.push(DELIVERY_FEE);
-        }
-      }
-      const totalDeliveryFee = result.reduce((prev, curr) => prev + curr, 0);
-      return totalDeliveryFee;
-    };
-
-    const totalDeliveryFee = Number(deliveryFeeByCart());
-
-    return {
-      name: userName,
-      cartList: carts,
-      totalPrice: totalPrice,
-      totalQantity: Number(totalPriceAndQuantity[0].total_quantity),
-      deliveryFee: totalDeliveryFee,
-      orderPrice: totalPrice + totalDeliveryFee,
-    };
+    return totalPriceAndQuantity;
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
@@ -99,15 +80,15 @@ const updateCart = async (userId, cartsId, quantity) => {
     );
     return updateCart;
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
 
-const deleteCarts = async (userId, cartsId) => {
+const deleteCart = async (userId, cartsId) => {
   try {
-    const deleteCarts = await myDataSource.query(
+    const deleteCart = await myDataSource.query(
       `
       DELETE
       FROM
@@ -115,10 +96,10 @@ const deleteCarts = async (userId, cartsId) => {
       WHERE user_id = ${userId} AND carts.id = ${cartsId}
     `
     );
-    return deleteCarts;
+    return deleteCart;
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
@@ -138,8 +119,8 @@ const existCheckCart = async (userId, bundleId) => {
     );
     return +carts[0].isExists; // + 붙이면 true false  반환
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
@@ -157,17 +138,18 @@ const plusQuantity = async (userId, bundleId) => {
     );
     return updateCart;
   } catch (err) {
-    const error = new Error("INVALID_DATA_INPUT");
-    error.statusCode = "500";
+    const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = '500';
     throw error;
   }
 };
 
 module.exports = {
   createCart,
-  getCarts,
+  getCartInfo,
+  getCartDetailInfo,
   updateCart,
-  deleteCarts,
+  deleteCart,
   existCheckCart,
   plusQuantity,
 };

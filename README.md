@@ -80,3 +80,10 @@ https://documenter.getpostman.com/view/22703204/VUxYp3Lz#intro
 ### 프로젝트에 대한 내용 자세히 보기
 
 https://www.notion.so/wecode/Coding_Restaurant-9b177a84ea674ac7a4291d1ec604ff05
+
+---
+
+## 🔸Reference🔸
+
+- 이 프로젝트는 [미래식당](https://meesig.com/) 사이트를 참조하여 학습목적으로 만들었습니다.
+- 실무수준의 프로젝트이지만 학습용으로 만들었기 때문에 이 코드를 활용하여 이득을 취하거나 무단 배포할 경우 법적으로 문제될 수 있습니다.
